@@ -1,8 +1,20 @@
 const express = require("express");
 const router = express.Router();
-const articleActions = require("../actions/api/articles");
-const Article = require("../db/models/article");
+const ArticleActions = require("../actions/api/articleActions");
 
-router.get("/", articleActions.saveArticle);
+//pobieranie wszystkich
+router.get("/articles", ArticleActions.getAllArticles);
+
+//pobieranie jednej
+router.get("/articles/:id", ArticleActions.getOneArticle);
+
+//dodawanie
+router.post("/articles", ArticleActions.saveArticle);
+
+//edytowanie
+router.put("/articles/:id", ArticleActions.editArticle);
+
+//usuwanie
+router.delete("/articles:id", ArticleActions.deleteArticle);
 
 module.exports = router;
