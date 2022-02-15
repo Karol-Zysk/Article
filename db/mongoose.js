@@ -1,3 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
+const { database } = require("../config");
 
-mongoose.connect()
+mongoose.connect(database);
