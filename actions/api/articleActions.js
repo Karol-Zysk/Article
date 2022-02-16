@@ -6,8 +6,14 @@ class ArticleActions {
     const title = request.body.title;
     const body = request.body.body;
 
-    const article = new Article({ title, body });
-    await article.save();
+    let article;
+
+    try {
+      article = new Article({ title, body });
+      await article.save();
+    } catch (err) {
+      return response.status(422).json({ message: err.message });
+    }
 
     response.status(200).json(article);
   }
@@ -40,8 +46,11 @@ class ArticleActions {
   }
 
   //usunięcie
-  deleteArticle(request, response) {
-    response.send("usunieto");
+  async deleteArticle(request, response) {
+    const id = request.params.id;
+    await Article.deleteOne({ _id: id });
+
+    response.sendStatus(204);
   }
 }
 

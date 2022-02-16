@@ -15,6 +15,6 @@ router.post("/articles", ArticleActions.saveArticle);
 router.put("/articles/:id", ArticleActions.updateArticle);
 
 //usuwanie
-router.delete("/articles:id", ArticleActions.deleteArticle);
+router.delete("/articles/:id", ArticleActions.deleteArticle);
 
 module.exports = router;
