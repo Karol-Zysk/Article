@@ -12,7 +12,7 @@ router.get("/articles/:id", ArticleActions.getOneArticle);
 router.post("/articles", ArticleActions.saveArticle);
 
 //edytowanie
-router.put("/articles/:id", ArticleActions.editArticle);
+router.put("/articles/:id", ArticleActions.updateArticle);
 
 //usuwanie
 router.delete("/articles:id", ArticleActions.deleteArticle);
