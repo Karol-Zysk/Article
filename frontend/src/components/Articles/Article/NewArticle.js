@@ -1,7 +1,15 @@
 import React from "react";
 import style from "../../Articles/Articles.module.css";
 
-const NewArticle = ({ addArticle, article, title, body }) => {
+const NewArticle = ({
+  onAdd,
+
+  article,
+  title,
+  _id,
+  body,
+}) => {
+  const [showModal, setShowModal] = React.useState(false);
   const [newTitle, setTitle] = React.useState("");
   const [newBody, setBody] = React.useState("");
 
@@ -15,34 +23,31 @@ const NewArticle = ({ addArticle, article, title, body }) => {
     setTitle(value);
   };
 
-  const setArticle = () => {
+  const addArticle = () => {
     const article = {
       title: newTitle,
       body: newBody,
+      _id: _id
     };
-    addArticle(article);
+    onAdd(article);
     setTitle("");
     setBody("");
+    setShowModal(!showModal);
   };
-  return (
+  return showModal ? (
     <div className={style.article}>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <label>Tytuł: </label>
-        <input
-          type="text"
-          placeholder="Article Title..."
-          value={newTitle}
-          onChange={setTitleHandler}
-        ></input>
-        <label>Treść Artykułu: </label>
-        <textarea
-          placeholder="Write..."
-          onChange={setBodyHandler}
-          value={newBody}
-        ></textarea>
+        <label>Tytuł:</label>
+        <input type="text" value={title} onChange={setTitleHandler} />
+
+        <label>Opis:</label>
+        <input type="text" value={body} onChange={setBodyHandler} />
+
+        <button onClick={() => addArticle()}>Dodaj notatkę</button>
       </div>
-      <button onClick={setArticle}>Add Article</button>
     </div>
+  ) : (
+    <button onClick={() => setShowModal(true)}>Nowa notatka</button>
   );
 };
 

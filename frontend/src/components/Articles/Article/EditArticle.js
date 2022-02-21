@@ -1,9 +1,10 @@
 import React from "react";
+import { useState } from "react";
 import style from "../../Articles/Articles.module.css";
 
-const EditArticle = ({ editArticle, article, title, body }) => {
-  const [newTitle, setTitle] = React.useState("");
-  const [newBody, setBody] = React.useState("");
+const EditArticle = ({ onEdit, _id, body, title }) => {
+  const [newTitle, setTitle] = useState(title);
+  const [newBody, setBody] = useState(body);
 
   const setBodyHandler = (event) => {
     const value = event.target.value;
@@ -15,15 +16,15 @@ const EditArticle = ({ editArticle, article, title, body }) => {
     setTitle(value);
   };
 
-  const settArticle = () => {
+  const editArticle = () => {
     const article = {
       title: newTitle,
       body: newBody,
+      _id: _id,
     };
-    editArticle();
-    setTitle("");
-    setBody("");
+    onEdit(article);
   };
+
   return (
     <div className={style.article}>
       <div style={{ display: "flex", flexDirection: "column" }}>
@@ -41,7 +42,7 @@ const EditArticle = ({ editArticle, article, title, body }) => {
           value={newBody}
         ></textarea>
       </div>
-      <button onClick={settArticle}>Save</button>
+      <button onClick={editArticle}>Zapisz</button>
     </div>
   );
 };
